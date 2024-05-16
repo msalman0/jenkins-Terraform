@@ -1,7 +1,7 @@
 terraform {
   backend "remote" {
+    hostname= "app.terraform.io"
     organization = "salman0-org"
- 
     workspaces {
       name = "my-app-dev"
     }
