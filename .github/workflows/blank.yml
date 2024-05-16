@@ -27,9 +27,9 @@ jobs:
           echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
           cd ~
           touch .terraformrc
-          echo 'credentials "app.terraform.io" {' >> .terraformrc
-          echo 'token = ${{ secrets.TERRAFORM_TOKEN }}' >> .terraformrc
-          echo '}' >> .terraformrc
+          echo 'credentials "app.terraform.io" {
+            token = "${{ secrets.TERRAFORM_TOKEN }}"
+          }' > ~/.terraformrc
 
       - name: Terraform Init
         run: terraform init
