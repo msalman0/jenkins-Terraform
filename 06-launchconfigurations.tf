@@ -100,6 +100,9 @@ resource "aws_launch_configuration" "ec2" {
   docker pull nginx
   docker tag nginx my-nginx
   docker run --rm --name nginx-server -d -p 80:80 -t my-nginx
+  apt-get update
+  apt-get install -y ansible
+
   EOL
   depends_on                  = [aws_nat_gateway.terraform-lab-ngw]
 }
