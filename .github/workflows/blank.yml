@@ -32,7 +32,6 @@ jobs:
           echo 'credentials "app.terraform.io" {
             token = "${{ secrets.TERRAFORM_TOKEN }}"
           }' > ~/.terraformrc
-
       - name: Terraform Init
         run: terraform init
 
