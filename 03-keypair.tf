@@ -1,4 +1,28 @@
-resource "aws_key_pair" "terraform-lab" {
-  key_name   = "${var.ec2_instance_name}_key_pair"
-  public_key = file(var.ssh_pubkey_file)
+## Generate PEM (and OpenSSH) formatted private key.
+resource "tls_private_key" "ec2-bastion-host-key-pair" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+## Create the file for Public Key
+resource "local_file" "ec2-bastion-host-public-key" {
+  depends_on = [tls_private_key.ec2-bastion-host-key-pair]
+  content    = tls_private_key.ec2-bastion-host-key-pair.public_key_openssh
+  filename   = var.ec2-bastion-public-key-path
+}
+
+## Create the sensitive file for Private Key
+resource "local_file" "ec2-bastion-host-private-key" {
+  depends_on      = [tls_private_key.ec2-bastion-host-key-pair]
+  content         = tls_private_key.ec2-bastion-host-key-pair.private_key_pem
+  filename        = var.ec2-bastion-private-key-path
+  file_permission = "0600"
+}
+
+## AWS SSH Key Pair
+resource "aws_key_pair" "ec2-bastion-host-key-pair" {
+  depends_on = [local_file.ec2-bastion-host-public-key]
+  key_name   = "${var.account}-ec2-bastion-host-key-pair"
+  public_key = tls_private_key.ec2-bastion-host-key-pair.public_key_openssh
+  # public_key = file(var.ec2-bastion-public-key-path)
 }

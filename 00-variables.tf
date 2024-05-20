@@ -7,7 +7,7 @@ variable "account" {
 
 variable "profile" {
   description = "The AWS profile"
-  default     = "terraform"
+  default     = "tf_user"
 }
 
 variable "region" {
@@ -72,7 +72,7 @@ variable "ec2_instance_name" {
 # key pair - Location to the SSH Key generate using openssl or ssh-keygen or AWS KeyPair
 variable "ssh_pubkey_file" {
   description = "Path to an SSH public key"
-  default     = "~/.ssh/id_ed25519.pub"
+  default     = "C:/Users/14337/.ssh/id_ed25519.pub"
 }
 
 
@@ -89,4 +89,15 @@ variable "autoscale_max" {
 variable "autoscale_desired" {
   description = "Desired autoscale (number of EC2)"
   default     = "2"
+}
+
+variable "ec2-bastion-private-key-path" {
+  description = "ec2-bastion-private-key-path"
+  default     = "./ec2-bastion-key-pair.pem"
+}
+
+## EC2 Bastion Host Variables
+variable "ec2-bastion-public-key-path" {
+  description = "ec2-bastion-public-key-path"
+  default     = "./ec2-bastion-key-pair.pub"
 }

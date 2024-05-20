@@ -1,7 +1,7 @@
 terraform {
-  backend "remote" {
-    hostname= "app.terraform.io"
+  cloud {
     organization = "salman0-org"
+
     workspaces {
       name = "my-app-dev"
     }
@@ -16,10 +16,3 @@ terraform {
     }
   }
 }
-
-# Provider configuration
-provider "aws" {
-  region = var.region
-  profile = var.profile
-}
-

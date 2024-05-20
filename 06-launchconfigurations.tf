@@ -71,7 +71,7 @@ resource "aws_iam_instance_profile" "session-manager" {
 resource "aws_instance" "bastion" {
   ami                         = lookup(var.amis, var.region)
   instance_type               = var.instance_type
-  key_name                    = aws_key_pair.terraform-lab.key_name
+  key_name                    = aws_key_pair.ec2-bastion-host-key-pair.key_name
   iam_instance_profile        = aws_iam_instance_profile.session-manager.id
   associate_public_ip_address = true
   security_groups             = [aws_security_group.ec2.id]
@@ -86,7 +86,7 @@ resource "aws_launch_configuration" "ec2" {
   image_id                    = lookup(var.amis, var.region)
   instance_type               = var.instance_type
   security_groups             = [aws_security_group.ec2.id]
-  key_name                    = aws_key_pair.terraform-lab.key_name
+  key_name                    = aws_key_pair.ec2-bastion-host-key-pair.key_name
   iam_instance_profile        = aws_iam_instance_profile.session-manager.id
   associate_public_ip_address = false
   user_data                   = <<-EOL
