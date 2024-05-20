@@ -7,7 +7,7 @@ variable "account" {
 
 variable "profile" {
   description = "The AWS profile"
-  default     = "terrafom"
+  default     = "terraform"
 }
 
 variable "region" {
