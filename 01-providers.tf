@@ -8,12 +8,6 @@ terraform {
   }
 }
 
-# Provider configuration
-provider "aws" {
-  region = var.region
-  profile = var.profile
-}
-
 terraform {
   required_providers {
     aws = {
@@ -22,3 +16,10 @@ terraform {
     }
   }
 }
+
+# Provider configuration
+provider "aws" {
+  region = var.region
+  profile = var.profile
+}
+
